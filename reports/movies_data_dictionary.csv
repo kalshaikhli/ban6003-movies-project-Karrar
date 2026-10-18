@@ -1,0 +1,33 @@
+column_name,data_type,description,source,transformation_or_derivation,notes_or_concerns
+movieId,int64,Unique movie identifier,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+tmdbId,int64,TMDB movie identifier,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+imdb_id,str,IMDb movie identifier,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+title,str,Movie title,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+original_title,str,Original movie title,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+original_language,str,Original language of the movie,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+release_date,str,Movie release date,movies_metadata.csv,Retained from source dataset without modification during ABT integration,Stored as text; convert to datetime if needed.
+runtime,float64,Movie duration in minutes,movies_metadata.csv,Retained from source dataset without modification during ABT integration,20 movies have nonpositive runtime values.
+budget,int64,Reported movie production budget,movies_metadata.csv,Retained from source dataset without modification during ABT integration,"4,443 movies have zero budget; may indicate unknown values."
+revenue,float64,Reported movie revenue,movies_metadata.csv,Retained from source dataset without modification during ABT integration,"4,322 movies have zero revenue; may indicate unknown values."
+popularity,float64,TMDB popularity measure,movies_metadata.csv,Retained from source dataset without modification during ABT integration,Post-release measure; potential data leakage.
+vote_average,float64,TMDB average vote score,movies_metadata.csv,Retained from source dataset without modification during ABT integration,TMDB score; distinct from MovieLens user ratings.
+vote_count,float64,Number of TMDB votes,movies_metadata.csv,Retained from source dataset without modification during ABT integration,Post-release measure; potential data leakage.
+genres,str,Original genre information,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+production_companies,str,Movie production companies,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+production_countries,str,Movie production countries,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+adult,bool,Adult-content indicator,movies_metadata.csv,Retained from source dataset without modification during ABT integration,No major issue identified during preliminary profiling.
+status,str,Movie release status,movies_metadata.csv,Retained from source dataset without modification during ABT integration,2 missing values.
+genres_list,str,Simplified list of movie genres,movies_metadata.csv,Retained from source dataset without modification during ABT integration,35 missing values.
+primary_genre,str,Primary movie genre,movies_metadata.csv,Retained from source dataset without modification during ABT integration,35 missing values.
+release_year,int64,Year of movie release,movies_metadata.csv,Retained from source dataset without modification during ABT integration,Historical coverage is uneven across decades.
+user_rating_mean,float64,Mean user rating for the movie,ratings.csv,Mean rating grouped by movieId,57 movies have no user ratings.
+user_rating_count,float64,Number of user ratings,ratings.csv,Count of ratings grouped by movieId,57 movies have no user ratings.
+user_rating_std,float64,Standard deviation of user ratings,ratings.csv,Sample standard deviation grouped by movieId,Missing for movies with fewer than 2 ratings.
+first_rating_date,datetime64[us],Earliest user rating date,ratings.csv,Minimum rating_datetime grouped by movieId,Missing for movies without ratings.
+last_rating_date,datetime64[us],Latest user rating date,ratings.csv,Maximum rating_datetime grouped by movieId,Missing for movies without ratings.
+director,str,Movie director,credits_curated.csv,Retained from source dataset without modification during ABT integration,24 missing values.
+top_cast,str,Main cast members,credits_curated.csv,Retained from source dataset without modification during ABT integration,90 missing values.
+keywords_list,str,Movie descriptive keywords,keywords_curated.csv,Retained from source dataset without modification during ABT integration,761 missing values.
+has_revenue,Int64,Indicator for positive reported revenue,Derived from revenue,1 if reported revenue > 0; otherwise 0,Zero revenue may indicate missing information.
+rating_target_eligible,bool,Indicator for at least 20 user ratings,Derived from ratings.csv,True if user_rating_count >= 20; otherwise False,Only movies with at least 20 ratings are eligible.
+high_user_rating,Int64,Indicator for mean rating of at least 3.75 among eligible movies,Derived from ratings.csv,1 if eligible and mean rating >= 3.75; 0 if eligible and below 3.75; otherwise missing,"Undefined for 7,782 movies; cutoff is 3.75."
