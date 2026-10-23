@@ -31,3 +31,4 @@ keywords_list,str,Movie descriptive keywords,keywords_curated.csv,Retained from 
 has_revenue,Int64,Indicator for positive reported revenue,Derived from revenue,1 if reported revenue > 0; otherwise 0,Zero revenue may indicate missing information.
 rating_target_eligible,bool,Indicator for at least 20 user ratings,Derived from ratings.csv,True if user_rating_count >= 20; otherwise False,Only movies with at least 20 ratings are eligible.
 high_user_rating,Int64,Indicator for mean rating of at least 3.75 among eligible movies,Derived from ratings.csv,1 if eligible and mean rating >= 3.75; 0 if eligible and below 3.75; otherwise missing,"Undefined for 7,782 movies; cutoff is 3.75."
+runtime_clean,float64,Movie runtime in minutes after cleaning invalid values,Derived from movies_metadata.csv,Converted runtime to numeric and replaced nonpositive values with NaN,20 nonpositive runtime values were treated as missing; original runtime preserved
